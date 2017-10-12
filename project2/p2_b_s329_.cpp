@@ -9,8 +9,8 @@
 
 // This program uses the bubble sort algorithm to sort an
 // array in ascending order.
+//Appen two arrays together.
 #include <iostream>
-//#include <ctype.h>
 using namespace std;
 
 // Function prototypes
@@ -21,11 +21,58 @@ int *iprepend(int *destination, int *source);
 int main()
 {
    // Assign types
-   int SIZE, count;
-   int *values, *destination;
+   int SIZE_1, SIZE_2, count, count_1 = 0, count_2 = 0;
+   int *arr1, *arr2, *arr3;
 
-   cout <<"Enter number of size elements: ";
-   cin >> SIZE;
+   cout << "Size number for static array: ";
+   cin >> SIZE_1;
+
+   int value[SIZE_1];
+
+   //check if cin is fail
+    while (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "Invalid integer. Try again!\n";
+            cout << endl;
+            cout <<"Size number for static array: ";
+            cin >> SIZE_1;
+
+        }
+
+    for (int count = 0; count < SIZE_1; count++)
+        {
+            cout << "Enter some numbers: ";
+            cin >> value[count];
+            count_1++;
+
+            //validate integer
+            while(cin.fail())
+            {
+                cin.clear();
+                cin.ignore(100, '\n');
+                cout <<"Invalid integer. Try again!\n";
+                cout <<"Enter some numbers: ";
+                cin >> value[count];
+                count_1++;
+            }
+        }
+
+    //Static array
+   cout << "Static array values: \n";
+   cout << count_1 << ": ";
+   showArray(value, SIZE_1);
+
+   //sort the values
+   sortArray(value, SIZE_1);
+   //display
+   cout << "The sorted values are: \n";
+   showArray(value, SIZE_1);
+
+
+   cout <<"Size number for dynamic array: ";
+   cin >> SIZE_2;
    cout << "\n";
 
    //check if cin is fail
@@ -35,20 +82,22 @@ int main()
             cin.ignore(100, '\n');
             cout << "Invalid integer. Try again!\n";
             cout << endl;
-            cout <<"Enter number of size elements: ";
-            cin >> SIZE;
+            cout <<"Size number for dynamic array: ";
+            cin >> SIZE_2;
+
 
         }
 
-   values = new int[SIZE+1];
-   destination = new int[SIZE+1];
+   int *values = new int[SIZE_2];
+   int *destination = new int[SIZE_2];
 
-   values[0] = SIZE;
+   values[0] = SIZE_2;
 
-    for ( count = 1; count < SIZE + 1; count++)
+    for ( count = 1; count < SIZE_2+1  ; count++)
         {
             cout << "Enter some numbers: ";
             cin >> values[count];
+            count_2++;
 
             //validate integer
             while(cin.fail())
@@ -58,22 +107,51 @@ int main()
                 cout <<"Invalid integer. Try again!\n";
                 cout <<"Enter some numbers: ";
                 cin >> values[count];
+                count_2++;
             }
         }
-   //display
+    cout << endl;
+
+   //display dynamic array
    iprepend(destination, values);
-   cout << "The values in destination array: \n";
-   for (count = 1;  count < SIZE+1; count++)
+   cout << "Dynamic array values: \n";
+   cout << count_2 << ": ";
+   for (count = 1;  count < SIZE_2+1; count++)
        cout << destination[count] << " ";
    // Display the values.
    cout << "\nThe unsorted values are:\n";
-   showArray(values, SIZE + 1);
+   for (count = 1; count < SIZE_2+1; count++)
+        cout << values[count] << " ";
+        cout << endl;
 
    // Sort the values.
-   sortArray(values, SIZE);
+   sortArray(values, SIZE_2+1);
    // Display them again.
    cout << "The sort values are:\n";
-   showArray(values, SIZE + 1);
+   showArray(values, SIZE_2+1);
+
+   //Append both array together.
+   int size1(SIZE_1), size2(SIZE_2);
+   arr1 = value;
+   arr2 = values;
+
+   arr3 = new int;
+
+   for(count = 0; count <size1+size2; count++)
+   {
+       if (count <size1)
+            arr3[count] = arr1[count];
+       else
+            arr3[count] = arr2[count-size1];
+
+   }
+   cout << endl;
+   //concatenate the arrays
+   cout << "The two arrays are concatenated..\n";
+   cout << count_1 + count_2 << ": ";
+   for (count = 0; count < size1+size2; count++)
+        cout <<arr3[count] << ", ";
+
 
    return 0;
 }
@@ -125,3 +203,4 @@ int *iprepend(int *destination, int *source)
 
     return destination;
 }
+
