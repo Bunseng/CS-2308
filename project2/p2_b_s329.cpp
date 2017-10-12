@@ -40,8 +40,8 @@ int main()
 
         }
 
-   values = new int[SIZE];
-   destination = new int[SIZE];
+   values = new int[SIZE+1];
+   destination = new int[SIZE+1];
 
    values[0] = SIZE;
 
@@ -67,13 +67,13 @@ int main()
        cout << destination[count] << " ";
    // Display the values.
    cout << "\nThe unsorted values are:\n";
-   showArray(values, SIZE);
+   showArray(values, SIZE + 1);
 
    // Sort the values.
    sortArray(values, SIZE);
    // Display them again.
    cout << "The sort values are:\n";
-   showArray(values, SIZE);
+   showArray(values, SIZE + 1);
 
    return 0;
 }
@@ -122,5 +122,6 @@ int *iprepend(int *destination, int *source)
     destination[0] = source[0];
     for (int i = 1; i < source[0]+1; i++)
         destination[i] = source[i];
-        return destination;
+
+    return destination;
 }
